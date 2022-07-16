@@ -17,7 +17,17 @@ const getAuthors = (uid) => new Promise((resolve, reject) => {
 });
 
 // FIXME: CREATE AUTHOR
-const createAuthor = () => {};
+const createAuthor = (newAuthor, uid) => new Promise((resolve, reject) => {
+  axios
+    .post(`${dbUrl}/authors.json`, newAuthor)
+    .then((response) => {
+      const payload = { firebaseKey: response.data.name };
+      axios.patch(`${dbUrl}/authors/${payload.firebaseKey}.json`, payload).then(() => {
+        getAuthors(uid).then((authorsArray) => resolve(Object.values(authorsArray)));
+      });
+    })
+    .catch((error) => reject(error));
+});
 
 const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/authors/${firebaseKey}.json`)
@@ -26,13 +36,37 @@ const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // FIXME: DELETE AUTHOR
-const deleteSingleAuthor = () => {};
+const deleteSingleAuthor = (firebaseKey, uid) => new Promise((resolve, reject) => {
+  axios
+    .delete(`${dbUrl}/authors/${firebaseKey}.json`)
+    .then(() => {
+      getAuthors(uid).then((authorsArray) => resolve(authorsArray));
+    })
+    .catch((error) => reject(error));
+});
 
 // FIXME: UPDATE AUTHOR
-const updateAuthor = () => {};
+const updateAuthor = (authorObj, uid) => new Promise((resolve, reject) => {
+  axios
+    .patch(`${dbUrl}/authors/${authorObj.firebaseKey}.json`, authorObj)
+    .then(() => getAuthors(uid).then(resolve))
+    .catch(reject);
+});
+
+// GET BOOKS BY AUTHOR
+const getBooksByAuthor = (firebaseKey) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS
-const getAuthorBooks = () => {};
+const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/authors/${firebaseKey}.json`)
+    .then((response) => getBooksByAuthor(response.data))
+    .catch(reject);
+});
 
 export {
   getAuthors,

@@ -1,41 +1,35 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
-import { useAuth } from '../utils/context/authContext';
+// import Image from 'next/image';
+// import { useAuth } from '../utils/context/authContext';
 
-export default function User() {
-  const { user } = useAuth();
+export default function User({
+  name, image, email, lastSignInTime,
+}) {
   return (
     <>
       <div>User</div>
-      <p>{user.displayName}</p>
-      <p>{user.photoURL}</p>
-      <Image
-        src={user.photoURL}
-        alt="Profile Picture"
-        width={200}
-        height={200}
-      />
-      <p>{user.email}</p>
-      <p>{user.metadata.lastSignInTime}</p>
+      <p>{name}</p>
+      <p>{image}</p>
+      <img src={image} width={200} height={200} />
+      <p>{email}</p>
+      <p>{lastSignInTime}</p>
     </>
   );
 }
 
 User.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    photoURL: PropTypes.string,
-    email: PropTypes.string,
-    metadata: PropTypes.shape,
-  }),
+  name: PropTypes.string,
+  image: PropTypes.string,
+  email: PropTypes.string,
+  lastSignInTime: PropTypes.string,
 };
 
 User.defaultProps = {
-  user: {
-    displayName: 'Christian Black',
-    photoURL: 'https://www.google.com/',
-    email: 'blackcl3@gmail.com',
-    metadata: { lastSignInTime: 'Sat, 16 Jul 2022 14:32:25 GMT' },
-  },
+  name: 'Christian Black',
+  image: 'https://lh3.googleusercontent.com/a-/AOh14GiGgEoduNAsMcdBfvGb5_PO377E_ppGePzqwwwDLA=s96-c',
+  email: 'blackcl3@gmail.com',
+  lastSignInTime: 'Sat, 16 Jul 2022 14:32:25 GMT',
 };
