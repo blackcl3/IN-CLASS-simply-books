@@ -1,5 +1,12 @@
 import React from 'react';
+import SignOut from '../components/SignOut';
+import User from '../components/User';
 
 export default function Profile() {
-  return <div>profile here</div>;
+  return (
+    <>
+      <User />
+      <SignOut />
+    </>
+  );
 }

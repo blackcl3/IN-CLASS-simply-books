@@ -1,3 +1,5 @@
+import AuthorCard from '../components/AuthorCard';
+
 export default function AuthorsPage() {
   return (
     <>
@@ -7,6 +9,7 @@ export default function AuthorsPage() {
         <li>Thoreau</li>
         <li>Seneca</li>
         <li>Stephen King</li>
+        <AuthorCard />
       </ul>
     </>
   );

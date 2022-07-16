@@ -25,6 +25,7 @@ const AuthProvider = (props) => {
     firebase.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
         setUser(fbUser);
+        console.warn(fbUser);
       } else {
         setUser(false);
       }
