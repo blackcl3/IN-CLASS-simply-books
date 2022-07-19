@@ -55,17 +55,9 @@ const updateAuthor = (authorObj, uid) => new Promise((resolve, reject) => {
 
 // GET BOOKS BY AUTHOR
 const getBooksByAuthor = (firebaseKey) => new Promise((resolve, reject) => {
-  axios
-    .get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`)
+  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
-});
-
-// TODO: GET A SINGLE AUTHOR'S BOOKS
-const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors/${firebaseKey}.json`)
-    .then((response) => getBooksByAuthor(response.data))
-    .catch(reject);
 });
 
 export {
@@ -74,5 +66,5 @@ export {
   getSingleAuthor,
   deleteSingleAuthor,
   updateAuthor,
-  getAuthorBooks,
+  getBooksByAuthor,
 };
