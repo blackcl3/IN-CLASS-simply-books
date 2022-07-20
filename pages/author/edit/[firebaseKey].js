@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { getSingleAuthor } from '../../../api/authorData';
+import AuthorForm from '../../../components/forms/AuthorForm';
 
 export default function EditIndividualAuthorPage() {
+  const [editItem, setEditItem] = useState({});
   const router = useRouter();
-  // eslint-disable-next-line no-unused-vars
+
   const { firebaseKey } = router.query;
-  return (
-    <>
-      <div>Edit Author Page</div>
-    </>
-  );
+
+  useEffect(() => {
+    getSingleAuthor(firebaseKey).then(setEditItem);
+  }, [firebaseKey]);
+
+  return (<AuthorForm obj={editItem} />);
 }
