@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
+import Link from 'next/link';
 import { deleteAuthorBooks } from '../api/mergedData';
 
 export default function AuthorCard({ author, onUpdate }) {
@@ -16,7 +17,12 @@ export default function AuthorCard({ author, onUpdate }) {
         <div>{author.last_name}</div>
         <div>{author.email}</div>
         <div>{author.favorite}</div>
-        <Button variant="danger" onClick={deleteThisAuthor}>DELETE</Button>
+        <Link href={`/author/edit/${author.firebaseKey}`} passHref>
+          <Button variant="info">EDIT</Button>
+        </Link>
+        <Button variant="danger" onClick={deleteThisAuthor}>
+          DELETE
+        </Button>
       </Card>
     </>
   );
