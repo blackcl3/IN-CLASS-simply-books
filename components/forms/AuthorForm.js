@@ -44,7 +44,7 @@ function AuthorForm({ obj }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="authorForm">
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Author</h2>
       <FloatingLabel
         controlId="floatingInput1"
