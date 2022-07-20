@@ -12,17 +12,27 @@ export default function AuthorCard({ author, onUpdate }) {
   };
   return (
     <>
-      <Card>
-        <div>{author.first_name}</div>
-        <div>{author.last_name}</div>
+      <Card className="authorCard">
+        <h3>
+          {author.first_name} {author.last_name}
+        </h3>
         <div>{author.email}</div>
         <div>{author.favorite}</div>
-        <Link href={`/author/edit/${author.firebaseKey}`} passHref>
-          <Button variant="info">EDIT</Button>
-        </Link>
-        <Button variant="danger" onClick={deleteThisAuthor}>
-          DELETE
-        </Button>
+        <div className="authorButtonGroup">
+          <Link href={`/author/${author.firebaseKey}`} passHref>
+            <Button variant="primary" className="viewAuthorDetailsButton">
+              VIEW DETAILS
+            </Button>
+          </Link>
+          <Link href={`/author/edit/${author.firebaseKey}`} passHref>
+            <Button variant="info" className="authorEditButton">
+              EDIT
+            </Button>
+          </Link>
+          <Button variant="danger" onClick={deleteThisAuthor} className="authorDeleteButton">
+            DELETE
+          </Button>
+        </div>
       </Card>
     </>
   );
